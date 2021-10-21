@@ -1,10 +1,10 @@
-# Shopping Cart
+# Inventory Application
 
 A shoe website where you can select and add to your cart different products.
 
 ## Live Demo
 
-[Click Here](https://camsz27.github.io/shopping-cart/)
+[Click Here](https://camsz27.github.io/inventory-application/)
 
 <img src="./src/preview.gif" width="900" alt="App preview"/>
 
@@ -14,11 +14,10 @@ The objective of this project was to keep working with React and use for the fir
 
 ## Built With
 
-- HTML
-- CSS/Bootstrap
-- JavaScript
-- React
-- React Router
+- HTML/Pug
+- CSS/Tailwind
+- JavaScript/Node.js
+- MongoDB
 
 ## License
 
