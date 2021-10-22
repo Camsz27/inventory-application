@@ -12,7 +12,7 @@ var InstrumentSchema = new Schema({
 
 // Create virtual for instrument's url
 InstrumentSchema.virtual('url').get(function () {
-  return '/category/instruments/' + this._id;
+  return '/inventory/instrument/' + this._id;
 });
 
 module.exports = mongoose.model('Instrument', InstrumentSchema);
