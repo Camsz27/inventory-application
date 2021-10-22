@@ -1,6 +1,10 @@
 var Category = require('../models/category');
 const { body, validationResult } = require('express-validator');
 
+exports.index = function (req, res) {
+  res.render('index', { title: 'Inventory Overview' });
+};
+
 exports.category_create_get = function (req, res) {
   res.send('Not implemented category create get');
 };

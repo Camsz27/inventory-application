@@ -7,6 +7,8 @@ var instrument_controller = require('../controllers/instrumentController');
 
 // Category routes
 
+router.get('/', category_controller.index);
+
 // Requests for creating a category
 router.get('/category/create', category_controller.category_create_get);
 router.post('/category/create', category_controller.category_create_post);
@@ -26,8 +28,6 @@ router.get('/category/:id', category_controller.category_detail);
 router.get('/category', category_controller.category_list);
 
 // Instrument routes
-
-router.get('/', instrument_controller.index);
 
 // Requests for creating an instrument
 router.get('/instrument/create', instrument_controller.instrument_create_get);

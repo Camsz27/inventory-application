@@ -1,10 +1,6 @@
 var Instrument = require('../models/instrument');
 const { body, validationResult } = require('express-validator');
 
-exports.index = function (req, res) {
-  res.send('Not implemented: site home page');
-};
-
 exports.instrument_create_get = function (req, res) {
   res.send('Not implemented: instrument create get');
 };
