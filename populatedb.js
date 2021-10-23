@@ -21,8 +21,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var instruments = [];
 var categories = [];
 
-function categoryCreate(name, description, cb) {
-  categoryDetail = { name: name, description: description };
+function categoryCreate(name, description, image, cb) {
+  categoryDetail = { name: name, description: description, image: image };
 
   var category = new Category(categoryDetail);
 
@@ -37,13 +37,22 @@ function categoryCreate(name, description, cb) {
   });
 }
 
-function instrumentCreate(name, brand, category, price, number_in_stock, cb) {
+function instrumentCreate(
+  name,
+  brand,
+  category,
+  price,
+  number_in_stock,
+  image,
+  cb
+) {
   instrumentDetail = {
     name: name,
     brand: brand,
     category: category,
     price: price,
     number_in_stock: number_in_stock,
+    image: image,
   };
 
   var instrument = new Instrument(instrumentDetail);
@@ -65,6 +74,7 @@ function createCategories(cb) {
         categoryCreate(
           'Guitars',
           'Fretted musical instrument that typically has six strings',
+          '/images/guitar.jpeg',
           callback
         );
       },
@@ -72,6 +82,7 @@ function createCategories(cb) {
         categoryCreate(
           'Basses',
           'Musical instrument that produces tones in the low-pitched range C4 - C2',
+          '/images/bass.webp',
           callback
         );
       },
@@ -79,6 +90,7 @@ function createCategories(cb) {
         categoryCreate(
           'Drums',
           'Musical instrument that is sounded by being struck or scraped by a beater',
+          '/images/drums.webp',
           callback
         );
       },
@@ -86,6 +98,7 @@ function createCategories(cb) {
         categoryCreate(
           'Keyboards',
           'Musical instrument played using a row of levers which are pressed by the fingers',
+          '/images/keyboard.webp',
           callback
         );
       },
@@ -93,6 +106,7 @@ function createCategories(cb) {
         categoryCreate(
           'Amps',
           'An electronic device that can increase the power of a signal',
+          '/images/amp.webp',
           callback
         );
       },
@@ -112,6 +126,7 @@ function createInstruments(cb) {
           categories[0],
           2699.0,
           7,
+          '/images/guitar1.webp',
           callback
         );
       },
@@ -122,6 +137,7 @@ function createInstruments(cb) {
           categories[0],
           2599.0,
           18,
+          '/images/guitar2.webp',
           callback
         );
       },
@@ -132,6 +148,7 @@ function createInstruments(cb) {
           categories[1],
           2199.99,
           3,
+          '/images/bass1.webp',
           callback
         );
       },
@@ -142,6 +159,7 @@ function createInstruments(cb) {
           categories[2],
           709.99,
           4,
+          '/images/drums1.webp',
           callback
         );
       },
@@ -152,6 +170,7 @@ function createInstruments(cb) {
           categories[3],
           679.99,
           12,
+          '/images/keyboard1.jpeg',
           callback
         );
       },
@@ -162,6 +181,7 @@ function createInstruments(cb) {
           categories[3],
           2699.99,
           8,
+          '/images/keyboard2.webp',
           callback
         );
       },
@@ -172,6 +192,7 @@ function createInstruments(cb) {
           categories[4],
           179.99,
           15,
+          '/images/amp1.jpeg',
           callback
         );
       },

@@ -8,6 +8,7 @@ var InstrumentSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   price: { type: Number, required: true, min: 0, max: 100000 },
   number_in_stock: { type: Number, required: true, min: 0, max: 1000 },
+  image: { type: String, required: true },
 });
 
 // Create virtual for instrument's url
