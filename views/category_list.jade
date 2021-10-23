@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1=title
+    h3(class='my-3') These are the types of instruments available
+    div(class='d-flex flex-wrap') 
+        for category in categories
+            div(class='card m-3' style='width:18rem')
+                img(src='/images/guitar.jpeg' class='card-img-top' alt='guitar')
+                div(class='card-body')
+                    h5(class='card-title') #{category.name}
+                    p(class='card-text') #{category.description}
+                    a(href='#' class='btn btn-primary') View items

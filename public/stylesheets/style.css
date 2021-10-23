@@ -15,8 +15,3 @@ a {
 li {
   list-style-type: none;
 }
-
-main {
-  height: 100vh;
-  display: flex;
-}

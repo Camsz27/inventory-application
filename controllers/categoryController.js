@@ -25,7 +25,6 @@ exports.index = function (req, res) {
         error: err,
         data: result,
       });
-      console.log(result);
     }
   );
 };
@@ -52,5 +51,14 @@ exports.category_detail = function (req, res) {
   res.send('Not implemented category detail');
 };
 exports.category_list = function (req, res) {
-  res.send('Not implemented category list');
+  Category.find({}).exec(function (err, category_list) {
+    if (err) {
+      return next(err);
+    }
+    console.log(category_list);
+    res.render('category_list', {
+      title: 'Category List',
+      categories: category_list,
+    });
+  });
 };
