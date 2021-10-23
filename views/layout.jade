@@ -13,15 +13,15 @@ html
         h1 Music Store
         ul(class='border-5 border-bottom pb-4')
           li(class='py-2')
-            a(href='#' class='link-primary fs-4') Home
+            a(href='/' class='link-primary fs-4') Home
           li(class='py-2')
-            a(href='#' class='link-primary fs-4') Categories
+            a(href='/inventory/category' class='link-primary fs-4') Categories
           li(class='py-2')
-            a(href='#' class='link-primary fs-4') Instruments
+            a(href='/inventory/instrument' class='link-primary fs-4') Instruments
         ul
           li(class='py-2') 
-            a(href='#' class='link-primary fs-4') Add Category
+            a(href='/inventory/category/create' class='link-primary fs-4') Add Category
           li(class='py-2')
-            a(href='#' class='link-primary fs-4') Add Instrument
+            a(href='/inventory/instrument/create' class='link-primary fs-4') Add Instrument
       section(class='pt-5')
         block content

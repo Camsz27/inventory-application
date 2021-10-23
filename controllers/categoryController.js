@@ -1,8 +1,33 @@
 var Category = require('../models/category');
+var Instrument = require('../models/instrument');
 const { body, validationResult } = require('express-validator');
+const async = require('async');
 
 exports.index = function (req, res) {
-  res.render('index', { title: 'Inventory Overview' });
+  async.parallel(
+    {
+      categories_num: function (callback) {
+        Category.countDocuments({}, callback);
+      },
+      instrument_num: function (callback) {
+        Instrument.countDocuments({}, callback);
+      },
+      inventory_num: function (callback) {
+        Instrument.aggregate(
+          [{ $group: { _id: null, total: { $sum: '$number_in_stock' } } }],
+          callback
+        );
+      },
+    },
+    function (err, result) {
+      res.render('index', {
+        title: 'Inventory Overview',
+        error: err,
+        data: result,
+      });
+      console.log(result);
+    }
+  );
 };
 
 exports.category_create_get = function (req, res) {

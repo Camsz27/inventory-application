@@ -2,4 +2,13 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to the Music Store
+
+  ul
+    li 
+      h4 Instrument Categories: #{data.categories_num}
+    li 
+      h4 Instrument Models: #{data.instrument_num}
+    li 
+      h4 Instruments in Inventory: #{data.inventory_num[0].total}
+
