@@ -55,7 +55,6 @@ exports.category_list = function (req, res) {
     if (err) {
       return next(err);
     }
-    console.log(category_list);
     res.render('category_list', {
       title: 'Category List',
       categories: category_list,

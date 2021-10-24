@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1=title
+  h3(class='my-3') These are the instruments available
+  div(class='d-flex flex-wrap') 
+    for instrument in instruments
+      div(class='card m-3' style='width:18rem')
+        img(src='#{instrument.image}' class='card-img-top' alt='guitar')
+        div(class='card-body d-flex flex-column justify-content-between')
+          h5(class='card-title') #{instrument.name}
+          h6(class='card-text fw-bold fs-5 my-3') $#{instrument.price}
+          a(href='#' class='btn btn-primary w-50') View item

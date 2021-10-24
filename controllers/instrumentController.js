@@ -23,5 +23,13 @@ exports.instrument_detail = function (req, res) {
   res.send('Not implemented: instrument detail');
 };
 exports.instrument_list = function (req, res) {
-  res.send('Not implemented: instrument list');
+  Instrument.find({}).exec(function (err, instrument_list) {
+    if (err) {
+      return next(err);
+    }
+    res.render('instrument_list', {
+      title: 'Instrument List',
+      instruments: instrument_list,
+    });
+  });
 };

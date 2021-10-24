@@ -8,20 +8,21 @@ html
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    main(class='container bg-light m-0 d-flex min-vh-100 min-vw-100')
-      section(class='d-flex flex-column border-end border-4 bg-light pt-5 mx-5 pe-5 min-w-100')
-        h1 Music Store
-        ul(class='border-5 border-bottom pb-4')
-          li(class='py-2')
-            a(href='/' class='link-primary fs-4') Home
-          li(class='py-2')
-            a(href='/inventory/category' class='link-primary fs-4') Categories
-          li(class='py-2')
-            a(href='/inventory/instrument' class='link-primary fs-4') Instruments
-        ul
-          li(class='py-2') 
-            a(href='/inventory/category/create' class='link-primary fs-4') Add Category
-          li(class='py-2')
-            a(href='/inventory/instrument/create' class='link-primary fs-4') Add Instrument
-      section(class='pt-5')
-        block content
+    main(class='container bg-light m-0 min-vh-100 min-vw-100')
+      div(class='row')
+        section(class='d-flex flex-column border-end border-4 bg-light pt-5 me-5 pe-5 col min-vh-100')
+          h1(class='ps-3') Music Store
+          ul(class='border-5 border-bottom pb-4')
+            li(class='py-2')
+              a(href='/' class='link-primary fs-4') Home
+            li(class='py-2')
+              a(href='/inventory/category' class='link-primary fs-4') Categories
+            li(class='py-2')
+              a(href='/inventory/instrument' class='link-primary fs-4') Instruments
+          ul
+            li(class='py-2') 
+              a(href='/inventory/category/create' class='link-primary fs-4') Add Category
+            li(class='py-2')
+              a(href='/inventory/instrument/create' class='link-primary fs-4') Add Instrument
+        section(class='pt-5 col-9')
+          block content
