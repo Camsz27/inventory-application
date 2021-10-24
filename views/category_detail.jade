@@ -2,4 +2,18 @@ extends layout
 
 block content
   h1=title
-  h3(class='my-3') These are the instruments available for that category
+  h3(class='my-3') #{category.description}
+  div(class='d-flex flex-wrap')
+    if(instruments)
+      for instrument in instruments
+        div(class='card m-3' style='width:18rem')
+          img(src='#{instrument.image}' class='card-img-top' alt='guitar')
+          div(class='card-body d-flex flex-column justify-content-between')
+            h5(class='card-title') #{instrument.name}
+            h6(class='card-text fw-bold fs-5 my-3') $#{instrument.price}
+            a(href='#{instrument.url}' class='btn btn-primary w-50') View item
+    else 
+      h3 There are no instruments for this category
+  div(class='d-flex mt-3')
+    a(class='btn btn-primary me-5' href=category.url+'/update') Update
+    a(class='btn btn-danger' href=category.url+'/delete') Delete

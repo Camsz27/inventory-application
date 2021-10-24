@@ -19,16 +19,15 @@ exports.instrument_delete_get = function (req, res) {
 exports.instrument_delete_post = function (req, res) {
   res.send('Not implemented: instrument delete post');
 };
-exports.instrument_detail = function (req, res) {
+exports.instrument_detail = function (req, res, next) {
   Instrument.findById(req.params.id, function (err, result) {
     if (err) {
       return next(err);
     }
-    console.log(result);
     res.render('instrument_detail', { title: result.name, data: result });
   });
 };
-exports.instrument_list = function (req, res) {
+exports.instrument_list = function (req, res, next) {
   Instrument.find({}).exec(function (err, instrument_list) {
     if (err) {
       return next(err);
