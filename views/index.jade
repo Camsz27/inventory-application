@@ -1,14 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to the Music Store
+  h1 Welcome to the Music Store
+  p(class='fs-3 fw-bold my-4')= title
 
   ul
     li 
       h4 Instrument Categories: #{data.categories_num}
     li 
-      h4 Instrument Models: #{data.instrument_num}
+      h4 Models Available: #{data.instrument_num}
     li 
       h4 Instruments in Inventory: #{data.inventory_num[0].total}
 

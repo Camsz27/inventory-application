@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1(class='mb-5')=title
+  div(class='card mb-3' style='max-width: 800px')
+    div(class='row g-0 align-items-center')
+      div(class='col-md-6')
+        img(src='#{data.image}' class='img-fluid rounded-start' alt='#{data.name}')
+      div(class='col-md-6')
+        div(class='card-body ms-4')
+          h5(class='card-title') <strong>Brand:</strong> #{data.brand}
+          h5(class='card-title my-3') <strong>Price:</strong> $#{data.price}
+          h5(class='card-title') <strong>Stock:</strong> #{data.number_in_stock}
+  div(class='d-flex mt-5')
+    button(class='btn btn-primary me-5') Update
+    button(class='btn btn-danger') Delete

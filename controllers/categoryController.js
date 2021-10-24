@@ -48,7 +48,7 @@ exports.category_delete_post = function (req, res) {
   res.send('Not implemented category delete post');
 };
 exports.category_detail = function (req, res) {
-  res.send('Not implemented category detail');
+  res.render('category_detail', { title: 'This is a nice title' });
 };
 exports.category_list = function (req, res) {
   Category.find({}).exec(function (err, category_list) {
@@ -56,7 +56,7 @@ exports.category_list = function (req, res) {
       return next(err);
     }
     res.render('category_list', {
-      title: 'Category List',
+      title: 'Categories',
       categories: category_list,
     });
   });
