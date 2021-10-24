@@ -1,6 +1,7 @@
 var Instrument = require('../models/instrument');
 var Category = require('../models/category');
 const { body, validationResult } = require('express-validator');
+const async = require('async');
 
 // Display form to create a new instrument
 exports.instrument_create_get = function (req, res, next) {
@@ -11,6 +12,7 @@ exports.instrument_create_get = function (req, res, next) {
     res.render('instrument_form', {
       title: 'Add a New Instrument',
       categories: result,
+      but: 'Create',
     });
   });
 };
@@ -44,6 +46,7 @@ exports.instrument_create_post = [
           instrument: req.body,
           selected_category: req.body.category,
           errors: errors.array(),
+          but: 'Create',
         });
       });
       return;
@@ -70,7 +73,33 @@ exports.instrument_create_post = [
 ];
 
 exports.instrument_update_get = function (req, res) {
-  res.send('Not implemented: instrument update get');
+  async.parallel(
+    {
+      categories: function (callback) {
+        Category.find({}).exec(callback);
+      },
+      instrument: function (callback) {
+        Instrument.findById(req.params.id).populate('category').exec(callback);
+      },
+    },
+    function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      if (result.instrument == null) {
+        var err = new Error('Instrument not found');
+        err.status = 404;
+        return next(err);
+      }
+      res.render('instrument_form', {
+        title: 'Update Instrument',
+        categories: result.categories,
+        instrument: result.instrument,
+        selected_category: result.instrument.category._id.toString(),
+        but: 'Update',
+      });
+    }
+  );
 };
 
 exports.instrument_update_post = function (req, res) {

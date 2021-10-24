@@ -24,7 +24,7 @@ block content
     div(class='mb-5')
       label(for='image' class='form-label fs-5') Image
       input(type="text" name='image' required class='form-control' id='image' value=(undefined === instrument ? '':instrument.image))
-    button(type="submit" class='btn btn-primary') Create
+    button(type="submit" class='btn btn-primary')=but
 
   if errors
     ul

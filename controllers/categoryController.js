@@ -32,7 +32,7 @@ exports.index = function (req, res) {
 
 // Display form to create a new category
 exports.category_create_get = function (req, res, next) {
-  res.render('category_form', { title: 'Add a New Category' });
+  res.render('category_form', { title: 'Add a New Category', but: 'Create' });
 };
 
 // Handles user input to create a new category
@@ -53,6 +53,7 @@ exports.category_create_post = [
         title: 'Add a New Category',
         category: req.body,
         errors: errors.array(),
+        but: 'Create',
       });
       return;
     }
