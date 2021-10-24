@@ -1,0 +1,21 @@
+extends layout 
+
+block content 
+
+  h1=title
+  form(action="", method="post" class='mt-4 w-50')
+    div(class='mb-3')
+      label(for='name' class='form-label fs-5') Category Name
+      input(type="text" name='name' required class='form-control' id='name' value=(undefined === category ? '':category.name))
+    div(class='mb-3')
+      label(for='description' class='form-label fs-5') Description
+      input(type="text" name='description' required class='form-control' id='description' value=(undefined === category ? '':category.description))
+    div(class='mb-5')
+      label(for='image' class='form-label fs-5') Image
+      input(type="text" name='image' required class='form-control' id='image' value=(undefined === category ? '':category.image))
+    button(type="submit" class='btn btn-primary') Create
+
+  if errors
+    ul
+      for error in errors
+        li(class='fs-6 mt-4 text-danger') !{error.msg}: !{error.value}

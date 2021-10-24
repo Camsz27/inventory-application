@@ -3,6 +3,7 @@ var Instrument = require('../models/instrument');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
 
+// Displays home page, shows number of instruments available
 exports.index = function (req, res) {
   async.parallel(
     {
@@ -29,12 +30,50 @@ exports.index = function (req, res) {
   );
 };
 
+// Display form to create a new category
 exports.category_create_get = function (req, res, next) {
-  res.send('Not implemented category create get');
+  res.render('category_form', { title: 'Add a New Category' });
 };
-exports.category_create_post = function (req, res) {
-  res.send('Not implemented category create post');
-};
+
+// Handles user input to create a new category
+exports.category_create_post = [
+  body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
+  body('description', 'Invalid description')
+    .trim()
+    .isLength({ min: 1, max: 200 })
+    .escape(),
+  body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }).escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    // Handle errors
+    if (!errors.isEmpty()) {
+      res.render('category_form', {
+        title: 'Add a New Category',
+        category: req.body,
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    //Create new category
+    var category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+    });
+
+    category.save(function (err) {
+      if (err) {
+        return next(err);
+      }
+      // Creation successful, redirect to category detail
+      res.redirect(category.url);
+    });
+  },
+];
+
 exports.category_update_get = function (req, res, next) {
   res.send('Not implemented category update get');
 };
@@ -47,6 +86,8 @@ exports.category_delete_get = function (req, res, next) {
 exports.category_delete_post = function (req, res) {
   res.send('Not implemented category delete post');
 };
+
+// Display instruments in a category
 exports.category_detail = function (req, res, next) {
   async.parallel(
     {
@@ -69,6 +110,8 @@ exports.category_detail = function (req, res, next) {
     }
   );
 };
+
+//Display list of categories
 exports.category_list = function (req, res, next) {
   Category.find({}).exec(function (err, category_list) {
     if (err) {
