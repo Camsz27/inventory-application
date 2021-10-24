@@ -75,12 +75,61 @@ exports.category_create_post = [
   },
 ];
 
+// Display form to update a category
 exports.category_update_get = function (req, res, next) {
-  res.send('Not implemented category update get');
+  Category.findById(req.params.id, function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    res.render('category_form', {
+      title: 'Update Category',
+      but: 'Update',
+      category: result,
+    });
+  });
 };
-exports.category_update_post = function (req, res) {
-  res.send('Not implemented category update post');
-};
+
+// Handle user input to update the category
+exports.category_update_post = [
+  body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
+  body('description', 'Invalid description')
+    .trim()
+    .isLength({ min: 1, max: 200 })
+    .escape(),
+  body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render('category_form', {
+        title: 'Update Category',
+        but: 'Update',
+        category: req.body,
+        errors: errors.array(),
+      });
+      return;
+    }
+
+    // Update the category
+    var category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      image: req.body.image,
+      _id: req.params.id,
+    });
+    Category.findByIdAndUpdate(
+      req.params.id,
+      category,
+      {},
+      function (err, theCategory) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect(theCategory.url);
+      }
+    );
+  },
+];
 exports.category_delete_get = function (req, res, next) {
   res.send('Not implemented category delete get');
 };
