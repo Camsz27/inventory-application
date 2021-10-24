@@ -1,0 +1,32 @@
+extends layout 
+
+block content 
+
+  h1=title
+  form(action="", method="post" class='mt-4 w-50')
+    div(class='mb-3')
+      label(for='name' class='form-label fs-5') Instrument Model
+      input(type="text" name='name' required class='form-control' id='name' value=(undefined === instrument ? '':instrument.name))
+    div(class='mb-3')
+      label(for='brand' class='form-label fs-5') Brand
+      input(type="text" name='brand' required class='form-control' id='brand' value=(undefined === instrument ? '':instrument.brand))
+    div(class='mb-3')
+      label(for='category' class='form-label fs-5') Category
+      select(id='category' name='category' class='form-select')
+        for category in categories
+          option(value=category._id selected=(selected_category===category._id.toString() ? 'selected' : false))=category.name
+    div(class='mb-3')
+      label(for='price' class='form-label fs-5') Price
+      input(type="number" name='price' required class='form-control' id='price' value=(undefined === instrument ? '':instrument.price))
+    div(class='mb-3')
+      label(for='number_in_stock' class='form-label fs-5') Stock
+      input(type="number" name='number_in_stock' required class='form-control' id='number_in_stock' value=(undefined === instrument ? '':instrument.number_in_stock))
+    div(class='mb-5')
+      label(for='image' class='form-label fs-5') Image
+      input(type="text" name='image' required class='form-control' id='image' value=(undefined === instrument ? '':instrument.image))
+    button(type="submit" class='btn btn-primary') Create
+
+  if errors
+    ul
+      for error in errors
+        li(class='fs-6 mt-4 text-danger') !{error.msg}: !{error.value}
