@@ -17,3 +17,14 @@ block content
   div(class='d-flex mt-3')
     a(class='btn btn-primary me-5' href=category.url+'/update') Update
     a(class='btn btn-danger' href=category.url+'/delete') Delete
+    div(class='modal fade' tabindex='-1' id='exampleModal')
+      div(class='modal-dialog')
+        div(class='modal-content')
+          div(class='modal-header')
+            h4(class='modal-title') Delete Instrument 
+            button(type='button' class="btn-close" data-bs-dismiss="modal")
+          div(class='modal-body')
+            p Are you sure you want to delete the instrument?
+          div(class='modal-footer')
+            button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close 
+            button(type="submit" class="btn btn-danger" href=category.url+'/delete') Delete

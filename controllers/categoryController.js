@@ -130,11 +130,37 @@ exports.category_update_post = [
     );
   },
 ];
+
 exports.category_delete_get = function (req, res, next) {
-  res.send('Not implemented category delete get');
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      instruments: function (callback) {
+        Instrument.find({ category: req.params.id }).exec(callback);
+      },
+    },
+    function (err, result) {
+      if (err) {
+        return next(err);
+      }
+      res.render('category_delete', {
+        title: 'Delete Category',
+        category: result.category,
+        instruments: result.instruments,
+      });
+    }
+  );
 };
+
 exports.category_delete_post = function (req, res) {
-  res.send('Not implemented category delete post');
+  Category.findByIdAndRemove(req.params.id, {}, function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/inventory/category');
+  });
 };
 
 // Display instruments in a category

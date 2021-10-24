@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1 #{title}: #{category.name}
+
+  if instruments.length
+
+    p(class='fs-6 my-4') #[strong Delete the following instruments before attempting to delete this category.]
+
+    div(style='margin-left:20px;margin-top:20px')
+
+      h4(class='fs-3') Instruments
+      div(class='d-flex')
+        each instrument in instruments
+          div(class='card m-3' style='width:18rem')
+            img(src='#{instrument.image}' class='card-img-top' alt='guitar')
+            div(class='card-body d-flex flex-column justify-content-between')
+              h5(class='card-title') #{instrument.name}
+              h6(class='card-text fw-bold fs-5 my-3') $#{instrument.price}
+              a(href='#{instrument.url}' class='btn btn-primary w-50') View item
+
+  else
+    h3(class='my-3 fs-3') Do you really want to delete this Category?
+
+    form(method='POST' action='')
+      div.form-group
+        input#category.form-control(type='hidden',name='category', required='true', value=category )
+
+      button.btn.btn-danger.my-4(type='submit') Delete
