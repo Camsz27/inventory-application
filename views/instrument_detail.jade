@@ -13,4 +13,16 @@ block content
           h5(class='card-title') <strong>Stock:</strong> #{data.number_in_stock}
   div(class='d-flex mt-5')
     a(class='btn btn-primary me-5' href=data.url+'/update') Update
-    a(class='btn btn-danger' href=data.url+'/delete') Delete
+    a(class='btn btn-danger' data-bs-toggle="modal" data-bs-target="#exampleModal") Delete
+    div(class='modal fade' tabindex='-1' id='exampleModal')
+      div(class='modal-dialog')
+        div(class='modal-content')
+          div(class='modal-header')
+            h4(class='modal-title') Delete Instrument 
+            button(type='button' class="btn-close" data-bs-dismiss="modal")
+          div(class='modal-body')
+            p Are you sure you want to delete the instrument?
+          div(class='modal-footer')
+            form(action="", method="post") 
+              button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Close 
+              button(type="submit" class="btn btn-danger" href=data.url+'/delete') Delete

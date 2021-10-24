@@ -44,14 +44,7 @@ router.post(
 );
 
 // Requests for deleting an instrument
-router.get(
-  '/instrument/:id/delete',
-  instrument_controller.instrument_delete_get
-);
-router.post(
-  '/instrument/:id/delete',
-  instrument_controller.instrument_delete_post
-);
+router.post('/instrument/:id', instrument_controller.instrument_delete);
 
 // Request for showing an instrument
 router.get('/instrument/:id', instrument_controller.instrument_detail);

@@ -158,12 +158,14 @@ exports.instrument_update_post = [
   },
 ];
 
-exports.instrument_delete_get = function (req, res) {
-  res.send('Not implemented: instrument delete get');
-};
-
-exports.instrument_delete_post = function (req, res) {
-  res.send('Not implemented: instrument delete post');
+// Delete selected instrument
+exports.instrument_delete = function (req, res) {
+  Instrument.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/inventory/instrument');
+  });
 };
 
 // Display detail for a given instrument
