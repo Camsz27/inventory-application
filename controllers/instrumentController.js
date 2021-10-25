@@ -157,46 +157,24 @@ exports.instrument_update_get = function (req, res) {
 };
 
 // Handle user input to update instrument
-exports.instrument_update_post = [
-  body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
-  body('brand', 'Invalid brand').trim().isLength({ min: 1, max: 100 }).escape(),
-  body('price', 'Invalid price')
-    .trim()
-    .isFloat({ min: 1, max: 100000 })
-    .escape(),
-  body('number_in_stock', 'Invalid stock number')
-    .trim()
-    .isInt({ min: 1, max: 1000 })
-    .escape(),
-  body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }).escape(),
-
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      Category.find({}).exec(function (err, result) {
-        if (err) {
-          return next(err);
-        }
-        res.render('instrument_form', {
-          title: 'Update Instrument',
-          categories: result,
-          instrument: req.body,
-          selected_category: req.body.category,
-          errors: errors.array(),
-          but: 'Update',
-        });
-      });
-      return;
+exports.instrument_update_post = function (req, res, next) {
+  upload(req, res, function (err) {
+    if (err) {
+      return next(err);
     }
+
+    // Create new instrument to replace old one
     var instrument = new Instrument({
       name: req.body.name,
       brand: req.body.brand,
       category: req.body.category,
       price: req.body.price,
       number_in_stock: req.body.number_in_stock,
-      image: req.body.image,
+      image: '/images/' + req.file.filename,
       _id: req.params.id,
     });
+
+    // Update existing instrument
     Instrument.findByIdAndUpdate(
       req.params.id,
       instrument,
@@ -208,8 +186,61 @@ exports.instrument_update_post = [
         res.redirect(theInstrument.url);
       }
     );
-  },
-];
+  });
+};
+// [
+//   body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
+//   body('brand', 'Invalid brand').trim().isLength({ min: 1, max: 100 }).escape(),
+//   body('price', 'Invalid price')
+//     .trim()
+//     .isFloat({ min: 1, max: 100000 })
+//     .escape(),
+//   body('number_in_stock', 'Invalid stock number')
+//     .trim()
+//     .isInt({ min: 1, max: 1000 })
+//     .escape(),
+//   body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }).escape(),
+
+//   (req, res, next) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       Category.find({}).exec(function (err, result) {
+//         if (err) {
+//           return next(err);
+//         }
+//         res.render('instrument_form', {
+//           title: 'Update Instrument',
+//           categories: result,
+//           instrument: req.body,
+//           selected_category: req.body.category,
+//           errors: errors.array(),
+//           but: 'Update',
+//         });
+//       });
+//       return;
+//     }
+//     var instrument = new Instrument({
+//       name: req.body.name,
+//       brand: req.body.brand,
+//       category: req.body.category,
+//       price: req.body.price,
+//       number_in_stock: req.body.number_in_stock,
+//       image: req.body.image,
+//       _id: req.params.id,
+//     });
+//     Instrument.findByIdAndUpdate(
+//       req.params.id,
+//       instrument,
+//       {},
+//       function (err, theInstrument) {
+//         if (err) {
+//           return next(err);
+//         }
+//         res.redirect(theInstrument.url);
+//       }
+//     );
+//   },
+// ];
 
 // Delete selected instrument
 exports.instrument_delete = function (req, res) {

@@ -135,33 +135,20 @@ exports.category_update_get = function (req, res, next) {
 };
 
 // Handle user input to update the category
-exports.category_update_post = [
-  body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
-  body('description', 'Invalid description')
-    .trim()
-    .isLength({ min: 1, max: 200 })
-    .escape(),
-  body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }),
-
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.render('category_form', {
-        title: 'Update Category',
-        but: 'Update',
-        category: req.body,
-        errors: errors.array(),
-      });
-      return;
+exports.category_update_post = function (req, res, err) {
+  upload(req, res, function (err) {
+    if (err) {
+      return next(err);
     }
 
-    // Update the category
+    // Create new category
     var category = new Category({
       name: req.body.name,
       description: req.body.description,
-      image: req.body.image,
+      image: '/images/' + req.file.filename,
       _id: req.params.id,
     });
+
     Category.findByIdAndUpdate(
       req.params.id,
       category,
@@ -173,8 +160,48 @@ exports.category_update_post = [
         res.redirect(theCategory.url);
       }
     );
-  },
-];
+  });
+};
+// [
+//   body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
+//   body('description', 'Invalid description')
+//     .trim()
+//     .isLength({ min: 1, max: 200 })
+//     .escape(),
+//   body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }),
+
+//   (req, res, next) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       res.render('category_form', {
+//         title: 'Update Category',
+//         but: 'Update',
+//         category: req.body,
+//         errors: errors.array(),
+//       });
+//       return;
+//     }
+
+//     // Update the category
+//     var category = new Category({
+//       name: req.body.name,
+//       description: req.body.description,
+//       image: req.body.image,
+//       _id: req.params.id,
+//     });
+//     Category.findByIdAndUpdate(
+//       req.params.id,
+//       category,
+//       {},
+//       function (err, theCategory) {
+//         if (err) {
+//           return next(err);
+//         }
+//         res.redirect(theCategory.url);
+//       }
+//     );
+//   },
+// ];
 
 exports.category_delete_get = function (req, res, next) {
   async.parallel(
