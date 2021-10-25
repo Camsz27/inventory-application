@@ -1,23 +1,23 @@
 # Inventory Application
 
-A shoe website where you can select and add to your cart different products.
+A inventory application to keep track of the instruments in a store. The user can change any of the information of the current categories and instruments. Additionally, they can create or delete categories/instruments and get an overview of their inventory in the homepage.
 
 ## Live Demo
 
 [Click Here](https://camsz27.github.io/inventory-application/)
 
-<img src="./src/preview.gif" width="900" alt="App preview"/>
+<img src="./preview.gif" width="800" alt="App preview"/>
 
 ## Description
 
-The objective of this project was to keep working with React and use for the first time React Router and Bootstrap.
+The objective of this project was to build a CRUD application for the first time, using the MVC pattern.
 
 ## Built With
 
 - HTML/Pug
-- CSS/Tailwind
+- CSS/Bootstrap
 - JavaScript/Node.js
-- MongoDB
+- MongoDB/Mongoose
 
 ## License
 
