@@ -141,7 +141,7 @@ exports.category_update_post = function (req, res, err) {
       return next(err);
     }
 
-    // Create new category
+    // Create new category to replace the old one
     var category = new Category({
       name: req.body.name,
       description: req.body.description,
@@ -149,6 +149,7 @@ exports.category_update_post = function (req, res, err) {
       _id: req.params.id,
     });
 
+    // Replace category in the server
     Category.findByIdAndUpdate(
       req.params.id,
       category,

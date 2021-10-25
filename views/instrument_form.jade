@@ -6,10 +6,10 @@ block content
   form(action="", method="post" class='mt-4 w-50' enctype='multipart/form-data')
     div(class='mb-3')
       label(for='name' class='form-label fs-5') Instrument Model
-      input(type="text" name='name' required class='form-control' id='name' value=(undefined === instrument ? '':instrument.name))
+      input(type="text" name='name' required class='form-control' id='name' value=(undefined === instrument ? '':instrument.name) minlength="1" maxlength="100")
     div(class='mb-3')
       label(for='brand' class='form-label fs-5') Brand
-      input(type="text" name='brand' required class='form-control' id='brand' value=(undefined === instrument ? '':instrument.brand))
+      input(type="text" name='brand' required class='form-control' id='brand' value=(undefined === instrument ? '':instrument.brand) minlength="1" maxlength="100")
     div(class='mb-3')
       label(for='category' class='form-label fs-5') Category
       select(id='category' name='category' class='form-select')
@@ -17,10 +17,10 @@ block content
           option(value=category._id selected=(selected_category===category._id.toString() ? 'selected' : false))=category.name
     div(class='mb-3')
       label(for='price' class='form-label fs-5') Price
-      input(type="number" name='price' required class='form-control' id='price' value=(undefined === instrument ? '':instrument.price))
+      input(type="number" name='price' required class='form-control' id='price' value=(undefined === instrument ? '':instrument.price) min="1" max="100000")
     div(class='mb-3')
       label(for='number_in_stock' class='form-label fs-5') Stock
-      input(type="number" name='number_in_stock' required class='form-control' id='number_in_stock' value=(undefined === instrument ? '':instrument.number_in_stock))
+      input(type="number" name='number_in_stock' required class='form-control' id='number_in_stock' value=(undefined === instrument ? '':instrument.number_in_stock) min="1" max="1000")
     div(class='mb-5')
       label(for='image' class='form-label fs-5') Image
       input(type="file" accept='image/*' name='image' required class='form-control' id='image' value=(undefined === instrument ? '':instrument.image))
