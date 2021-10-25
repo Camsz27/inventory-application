@@ -4,7 +4,7 @@ A inventory application to keep track of the instruments in a store. The user ca
 
 ## Live Demo
 
-[Click Here](https://limitless-thicket-26544.herokuapp.com/inventory/category/create)
+[Click Here](https://limitless-thicket-26544.herokuapp.com/)
 
 <img src="./preview.gif" width="800" alt="App preview"/>
 
