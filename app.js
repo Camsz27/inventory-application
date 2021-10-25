@@ -25,7 +25,16 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'script-src': ["'self'", "'unsafe-inline'", 'example.com'],
+      },
+    },
+  })
+);
 app.use(compression());
 app.use(logger('dev'));
 app.use(express.json());
