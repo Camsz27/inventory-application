@@ -3,7 +3,7 @@ extends layout
 block content 
 
   h1=title
-  form(action="", method="post" class='mt-4 w-50')
+  form(action="", method="post" class='mt-4 w-50' enctype='multipart/form-data')
     div(class='mb-3')
       label(for='name' class='form-label fs-5') Instrument Model
       input(type="text" name='name' required class='form-control' id='name' value=(undefined === instrument ? '':instrument.name))
@@ -23,7 +23,7 @@ block content
       input(type="number" name='number_in_stock' required class='form-control' id='number_in_stock' value=(undefined === instrument ? '':instrument.number_in_stock))
     div(class='mb-5')
       label(for='image' class='form-label fs-5') Image
-      input(type="text" name='image' required class='form-control' id='image' value=(undefined === instrument ? '':instrument.image))
+      input(type="file" accept='image/*' name='image' required class='form-control' id='image' value=(undefined === instrument ? '':instrument.image))
     button(type="submit" class='btn btn-primary')=but
 
   if errors

@@ -3,7 +3,7 @@ extends layout
 block content 
 
   h1=title
-  form(action="", method="post" class='mt-4 w-50')
+  form(action="", method="post" class='mt-4 w-50' enctype='multipart/form-data')
     div(class='mb-3')
       label(for='name' class='form-label fs-5') Category Name
       input(type="text" name='name' required class='form-control' id='name' value=(undefined === category ? '':category.name))
@@ -12,7 +12,7 @@ block content
       input(type="text" name='description' required class='form-control' id='description' value=(undefined === category ? '':category.description))
     div(class='mb-5')
       label(for='image' class='form-label fs-5') Image
-      input(type="text" name='image' required class='form-control' id='image' value=(undefined === category ? '':category.image))
+      input(type="file" accept='image/*' name='image' required class='form-control' id='image' value=(undefined === category ? '':category.image))
     button(type="submit" class='btn btn-primary')=but
 
   if errors

@@ -2,6 +2,27 @@ var Category = require('../models/category');
 var Instrument = require('../models/instrument');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
+const multer = require('multer');
+const path = require('path');
+
+// Select location to store the images
+const storage = multer.diskStorage({
+  destination: './public/images/',
+  filename: function (req, file, callback) {
+    callback(
+      null,
+      file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+// Upload image that is entered in the form
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, callback) => {
+    callback(null, true);
+  },
+}).single('image');
 
 // Displays home page, shows number of instruments available
 exports.index = function (req, res) {
@@ -36,44 +57,68 @@ exports.category_create_get = function (req, res, next) {
 };
 
 // Handles user input to create a new category
-exports.category_create_post = [
-  body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
-  body('description', 'Invalid description')
-    .trim()
-    .isLength({ min: 1, max: 200 })
-    .escape(),
-  body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }).escape(),
-
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    // Handle errors
-    if (!errors.isEmpty()) {
-      res.render('category_form', {
-        title: 'Add a New Category',
-        category: req.body,
-        errors: errors.array(),
-        but: 'Create',
-      });
-      return;
+exports.category_create_post = function (req, res, next) {
+  upload(req, res, function (err) {
+    if (err) {
+      return next(err);
     }
 
-    //Create new category
+    // Create new category
     var category = new Category({
       name: req.body.name,
       description: req.body.description,
-      image: req.body.image,
+      image: '/images/' + req.file.filename,
     });
 
+    // Save category in database
     category.save(function (err) {
       if (err) {
         return next(err);
       }
-      // Creation successful, redirect to category detail
+      // Creation successful redirect to category page
       res.redirect(category.url);
     });
-  },
-];
+  });
+};
+
+// [
+//   body('name', 'Invalid name').trim().isLength({ min: 1, max: 100 }).escape(),
+//   body('description', 'Invalid description')
+//     .trim()
+//     .isLength({ min: 1, max: 200 })
+//     .escape(),
+//   body('image', 'Invalid image').trim().isLength({ min: 1, max: 100 }).escape(),
+
+//   (req, res, next) => {
+//     const errors = validationResult(req);
+
+//     // Handle errors
+//     if (!errors.isEmpty()) {
+//       res.render('category_form', {
+//         title: 'Add a New Category',
+//         category: req.body,
+//         errors: errors.array(),
+//         but: 'Create',
+//       });
+//       return;
+//     }
+
+//     //Create new category
+//     var category = new Category({
+//       name: req.body.name,
+//       description: req.body.description,
+//       image: req.body.image,
+//     });
+
+//     category.save(function (err) {
+//       if (err) {
+//         return next(err);
+//       }
+//       // Creation successful, redirect to category detail
+//       res.redirect(category.url);
+//     });
+//   },
+// ];
 
 // Display form to update a category
 exports.category_update_get = function (req, res, next) {
