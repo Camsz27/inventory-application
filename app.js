@@ -9,7 +9,7 @@ var helmet = require('helmet');
 // Set up mongoose connection
 var mongoose = require('mongoose');
 var dev_db_url =
-  'mongodb+srv://mongodbuser:mongodbpassword@cluster0.q7ogs.mongodb.net/inventory-application?retryWrites=true&w=majority';
+  'mongodb+srv://trial:trialpassword@cluster0.q7ogs.mongodb.net/inventory-application?retryWrites=true&w=majority';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;

@@ -1,6 +1,6 @@
 # Inventory Application
 
-A inventory application to keep track of the instruments in a store. The user can change any of the information of the current categories and instruments. Additionally, they can create or delete categories/instruments and get an overview of their inventory in the homepage.
+Inventory application to keep track of the instruments in a store. The user can change any of the information of the current categories and instruments. Additionally, they can create or delete categories/instruments and get an overview of their inventory in the homepage.
 
 ## Live Demo
 
