@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var compression = require('compression');
 var helmet = require('helmet');
+require('dotenv').config();
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
